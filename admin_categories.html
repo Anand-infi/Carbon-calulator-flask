@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Manage Emission Categories</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f7f6; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        h1, h2 { color: #007bff; }
+        .form-section, .table-section { margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-primary { padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-primary:hover { background-color: #218838; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .action-btns button { padding: 5px 10px; margin-right: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        
+        <nav style="margin-bottom: 20px;">
+            <a href="/admin/dashboard">Dashboard</a> | 
+            <a href="/admin/clients">Manage Clients</a> | 
+            <a href="/admin/categories" style="font-weight: bold;">Manage Categories</a> | 
+            <a href="/admin/data-review">Review Data</a>
+        </nav>
+
+        <hr>
+
+        <div class="form-section">
+            <h2>Add New Emission Category</h2>
+            <form id="addCategoryForm" action="/admin/add-category" method="POST">
+                <div class="form-group">
+                    <label for="name">Category Name (e.g., Purchased Electricity)</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group" style="display: flex; gap: 20px;">
+                    <div style="flex: 1;">
+                        <label for="unit">Unit of Measurement (e.g., kWh, Liters, Tonnes)</label>
+                        <input type="text" id="unit" name="unit" required placeholder="e.g., kWh or L">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="factor">Emission Factor ($\text{CO}_2e$ per Unit)</label>
+                        <input type="number" step="any" id="factor" name="factor" required placeholder="e.g., 0.45 (for kWh)">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary">Add Category</button>
+            </form>
+        </div>
+
+        <div class="table-section">
+            <h2>Existing Emission Factors</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category Name</th>
+                        <th>Unit</th>
+                        <th>Emission Factor ($\text{CO}_2e$ / Unit)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Purchased Electricity</td>
+                        <td>kWh</td>
+                        <td>0.45</td>
+                        <td class="action-btns">
+                            <button onclick="editCategory(1)">Edit</button>
+                            <button onclick="deleteCategory(1)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Company Fleet Diesel</td>
+                        <td>Liters (L)</td>
+                        <td>2.68</td>
+                        <td class="action-btns">
+                            <button onclick="editCategory(2)">Edit</button>
+                            <button onclick="deleteCategory(2)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Paper Consumption</td>
+                        <td>Tonnes</td>
+                        <td>1.15</td>
+                        <td class="action-btns">
+                            <button onclick="editCategory(3)">Edit</button>
+                            <button onclick="deleteCategory(3)">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+
+    </div>
+    
+    <script>
+        function editCategory(id) {
+            alert('Editing Category ID: ' + id);
+            // In a real application, this would redirect to an edit page or open a modal.
+        }
+        function deleteCategory(id) {
+             if(confirm('Are you sure you want to delete Category ID: ' + id + '?')) {
+                // In a real application, this would send an AJAX request to the backend.
+                alert('Deleting category ' + id);
+             }
+        }
+    </script>
+</body>
+</html>
